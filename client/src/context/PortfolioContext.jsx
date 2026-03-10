@@ -49,13 +49,13 @@ export function PortfolioProvider({ children }) {
 
   const addSection = useCallback((type) => {
     const defaults = {
-      hero: { name: 'Your Name', title: 'Your Title', subtitle: 'A short bio about yourself', ctaText: 'View Projects', ctaLink: '#projects' },
-      about: { heading: 'About Me', bio: 'Write something about yourself here...', image: '' },
-      skills: { heading: 'Skills', items: [{ name: 'React', level: 90 }, { name: 'Node.js', level: 80 }] },
-      projects: { heading: 'Projects', items: [{ title: 'My Project', description: 'Project description', tech: 'React, Node.js', link: '', image: '' }] },
-      experience: { heading: 'Experience', items: [{ company: 'Company Name', role: 'Software Engineer', start: '2022', end: 'Present', description: 'Describe your responsibilities and achievements.' }] },
-      education: { heading: 'Education', items: [{ school: 'University Name', degree: 'B.Sc. Computer Science', start: '2018', end: '2022' }] },
-      contact: { heading: 'Get In Touch', email: 'you@email.com', github: '', linkedin: '', twitter: '' },
+      hero: { name: '', title: '', subtitle: '', ctaText: '', ctaLink: '' },
+      about: { heading: '', bio: '', image: '' },
+      skills: { heading: '', items: [] },
+      projects: { heading: '', items: [] },
+      experience: { heading: '', items: [] },
+      education: { heading: '', items: [] },
+      contact: { heading: '', email: '', github: '', linkedin: '', twitter: '' },
     }
     const newSection = { id: `${type}-${Date.now()}`, type, order: 999, data: defaults[type] || {} }
     setCurrent((prev) => ({

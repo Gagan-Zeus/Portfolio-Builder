@@ -42,11 +42,11 @@ router.post('/', auth, async (req, res) => {
           type: 'hero',
           order: 0,
           data: {
-            name: req.user.name,
-            title: 'Full Stack Developer',
-            subtitle: 'Building exceptional digital experiences',
-            ctaText: 'View My Work',
-            ctaLink: '#projects'
+            name: '',
+            title: '',
+            subtitle: '',
+            ctaText: '',
+            ctaLink: ''
           }
         }
       ]
