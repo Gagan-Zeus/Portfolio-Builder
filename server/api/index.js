@@ -16,7 +16,14 @@ async function connectDB() {
 }
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || '*',
+  origin: function (origin, callback) {
+    const allowed = process.env.CLIENT_URL || '';
+    if (!origin || origin === allowed || origin.endsWith('.vercel.app')) {
+      callback(null, origin);
+    } else {
+      callback(null, allowed);
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
