@@ -5,7 +5,9 @@ import { useAuth } from '../context/AuthContext'
 import { usePortfolio } from '../context/PortfolioContext'
 import toast from 'react-hot-toast'
 import Navbar from '../components/Navbar'
-import { Plus, Pencil, Trash2, Globe, EyeOff, ExternalLink, FileText, TrendingUp, Zap } from 'lucide-react'
+import { Plus, Pencil, Trash2, Globe, EyeOff, ExternalLink, FileText, TrendingUp, Zap, Download } from 'lucide-react'
+import downloadPortfolio from '../utils/downloadPortfolio'
+import api from '../utils/api'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -15,6 +17,15 @@ export default function Dashboard() {
   const [newTitle, setNewTitle] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(true)
+
+  const handleDownload = async (id) => {
+    try {
+      const { data } = await api.get(`/portfolios/${id}`)
+      downloadPortfolio(data.portfolio)
+    } catch {
+      toast.error('Failed to download')
+    }
+  }
 
   useEffect(() => {
     fetchAll().finally(() => setLoading(false))
@@ -142,6 +153,11 @@ export default function Dashboard() {
                           <ExternalLink size={12} />
                         </Link>
                       )}
+                      <button onClick={() => handleDownload(p._id)}
+                        className="flex items-center justify-center px-3 py-2 rounded-xl text-xs text-slate-400 transition-all duration-200 hover:bg-indigo-500/10"
+                        style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+                        <Download size={12} />
+                      </button>
                       <button onClick={() => handleDelete(p._id, p.title)}
                         className="flex items-center justify-center px-3 py-2 rounded-xl text-xs text-red-400 transition-all duration-200 hover:bg-red-500/10"
                         style={{ border: '1px solid rgba(255,255,255,0.06)' }}>

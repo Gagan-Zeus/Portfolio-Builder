@@ -21,7 +21,8 @@ import SectionPanel from '../components/Builder/SectionPanel'
 import DraggableSection from '../components/Builder/DraggableSection'
 import SectionEditor from '../components/Builder/SectionEditor'
 import PortfolioPreview from '../components/Preview/PortfolioPreview'
-import { Save, Eye, EyeOff, Globe, Layers, Settings, ChevronLeft } from 'lucide-react'
+import { Save, Eye, EyeOff, Globe, Layers, Settings, ChevronLeft, Download } from 'lucide-react'
+import downloadPortfolio from '../utils/downloadPortfolio'
 
 export default function Builder() {
   const { id } = useParams()
@@ -110,6 +111,11 @@ export default function Builder() {
             }}>
             <Globe size={13} />
             {current?.published ? 'Published' : 'Publish'}
+          </button>
+          <button onClick={() => current && downloadPortfolio(current)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#94a3b8' }}>
+            <Download size={13} /> Download
           </button>
           <button onClick={handleSave} disabled={saving} className="btn-primary py-1.5 px-4 text-xs">
             {saving ? <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Save size={13} /> Save</>}
