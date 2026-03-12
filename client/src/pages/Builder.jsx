@@ -1,42 +1,41 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core'
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
 import { usePortfolio } from '../context/PortfolioContext'
 import toast from 'react-hot-toast'
-import Navbar from '../components/Navbar'
-import SectionPanel from '../components/Builder/SectionPanel'
-import DraggableSection from '../components/Builder/DraggableSection'
-import SectionEditor from '../components/Builder/SectionEditor'
-import PortfolioPreview from '../components/Preview/PortfolioPreview'
-import { Save, Eye, EyeOff, Globe, Layers, Settings, ChevronLeft, Download } from 'lucide-react'
-import downloadPortfolio from '../utils/downloadPortfolio'
+import { Save, Rocket, Clock, Briefcase, GraduationCap, Award, FolderOpen, Layers, Heart, Mic, PenTool, Mail, Palette, User } from 'lucide-react'
+import GeneralInfoForm from '../components/sections/GeneralInfoForm'
+import WorkExperienceForm from '../components/sections/WorkExperienceForm'
+import EducationForm from '../components/sections/EducationForm'
+import CertificationsForm from '../components/sections/CertificationsForm'
+import ProjectsForm from '../components/sections/ProjectsForm'
+import SideProjectsForm from '../components/sections/SideProjectsForm'
+import VolunteeringForm from '../components/sections/VolunteeringForm'
+import SpeakingForm from '../components/sections/SpeakingForm'
+import WritingForm from '../components/sections/WritingForm'
+import ContactForm from '../components/sections/ContactForm'
+import BackgroundForm from '../components/sections/BackgroundForm'
+
+const SECTIONS = [
+  { key: 'general', label: 'General Info', icon: User },
+  { key: 'workExperience', label: 'Work Experience', icon: Briefcase },
+  { key: 'education', label: 'Education', icon: GraduationCap },
+  { key: 'certifications', label: 'Certifications', icon: Award },
+  { key: 'projects', label: 'Projects', icon: FolderOpen },
+  { key: 'sideProjects', label: 'Side Projects', icon: Layers },
+  { key: 'volunteering', label: 'Volunteering', icon: Heart },
+  { key: 'speaking', label: 'Speaking', icon: Mic },
+  { key: 'writing', label: 'Writing', icon: PenTool },
+  { key: 'contact', label: 'Contact', icon: Mail },
+  { key: 'background', label: 'Background', icon: Palette },
+]
 
 export default function Builder() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { current, fetchOne, savePortfolio, reorderSections, togglePublish } = usePortfolio()
-  const [selectedSection, setSelectedSection] = useState(null)
-  const [saving, setSaving] = useState(false)
-  const [activeTab, setActiveTab] = useState('sections')
-  const [loading, setLoading] = useState(true)
+  const { current, fetchOne, savePortfolio, togglePublish, updateCurrent, saving, lastSaved } = usePortfolio()
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
-  )
+  const [activeSection, setActiveSection] = useState('general')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchOne(id)
@@ -44,44 +43,51 @@ export default function Builder() {
       .finally(() => setLoading(false))
   }, [id])
 
-  const handleSave = async () => {
-    setSaving(true)
+  const handleSave = useCallback(async () => {
+    if (!current) return
     try {
       await savePortfolio(id, {
-        title: current?.title,
-        sections: current?.sections,
-        theme: current?.theme,
-        published: current?.published,
+        general: current.general,
+        workExperience: current.workExperience,
+        education: current.education,
+        certifications: current.certifications,
+        projects: current.projects,
+        sideProjects: current.sideProjects,
+        volunteering: current.volunteering,
+        speaking: current.speaking,
+        writing: current.writing,
+        contact: current.contact,
+        background: current.background,
       })
       toast.success('Saved!')
     } catch {
       toast.error('Failed to save')
-    } finally {
-      setSaving(false)
     }
-  }
+  }, [current, id, savePortfolio])
 
-  const handlePublishToggle = async () => {
+  const handlePublish = async () => {
     try {
       await togglePublish(id)
       toast.success(current?.published ? 'Unpublished' : 'Published!')
     } catch {
-      toast.error('Failed to update')
+      toast.error('Failed to publish')
     }
   }
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event
-    if (over && active.id !== over.id) {
-      reorderSections(active.id, over.id)
-    }
+  const handleFieldChange = (section, value) => {
+    updateCurrent({ [section]: value })
   }
 
-  const sorted = current?.sections
-    ? [...current.sections].sort((a, b) => a.order - b.order)
-    : []
-
-  const selectedSectionData = current?.sections?.find(s => s.id === selectedSection)
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        e.preventDefault()
+        handleSave()
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [handleSave])
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: '#070712' }}>
@@ -89,116 +95,118 @@ export default function Builder() {
     </div>
   )
 
+  const renderForm = () => {
+    if (!current) return null
+    switch (activeSection) {
+      case 'general':
+        return <GeneralInfoForm data={current.general} onChange={(v) => handleFieldChange('general', v)} />
+      case 'workExperience':
+        return <WorkExperienceForm data={current.workExperience} onChange={(v) => handleFieldChange('workExperience', v)} />
+      case 'education':
+        return <EducationForm data={current.education} onChange={(v) => handleFieldChange('education', v)} />
+      case 'certifications':
+        return <CertificationsForm data={current.certifications} onChange={(v) => handleFieldChange('certifications', v)} />
+      case 'projects':
+        return <ProjectsForm data={current.projects} onChange={(v) => handleFieldChange('projects', v)} />
+      case 'sideProjects':
+        return <SideProjectsForm data={current.sideProjects} onChange={(v) => handleFieldChange('sideProjects', v)} />
+      case 'volunteering':
+        return <VolunteeringForm data={current.volunteering} onChange={(v) => handleFieldChange('volunteering', v)} />
+      case 'speaking':
+        return <SpeakingForm data={current.speaking} onChange={(v) => handleFieldChange('speaking', v)} />
+      case 'writing':
+        return <WritingForm data={current.writing} onChange={(v) => handleFieldChange('writing', v)} />
+      case 'contact':
+        return <ContactForm data={current.contact} onChange={(v) => handleFieldChange('contact', v)} />
+      case 'background':
+        return <BackgroundForm data={current.background} onChange={(v) => handleFieldChange('background', v)} />
+      default:
+        return null
+    }
+  }
+
+  const activeLabel = SECTIONS.find(s => s.key === activeSection)?.label || ''
+
   return (
-    <div style={{ background: '#070712', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-3 flex-shrink-0"
-        style={{ background: '#0a0a14', borderBottom: '1px solid rgba(255,255,255,0.06)', height: '56px' }}>
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/dashboard')} className="flex items-center gap-1.5 text-slate-400 hover:text-white text-sm transition-colors">
-            <ChevronLeft size={16} /> Dashboard
-          </button>
-          <span className="text-slate-700">|</span>
-          <span className="text-sm font-medium text-slate-200 truncate max-w-[200px]">{current?.title}</span>
+    <div className="flex min-h-screen" style={{ background: '#070712' }}>
+      {/* Left Sidebar */}
+      <div className="w-56 flex-shrink-0 flex flex-col" style={{ background: '#0a0a14', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="px-4 py-5 flex items-center gap-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(99,102,241,0.15)' }}>
+            <FolderOpen size={16} className="text-indigo-400" />
+          </div>
+          <span className="text-sm font-semibold text-white">Portfolio Builder</span>
         </div>
-        <div className="flex items-center gap-2">
-          <button onClick={handlePublishToggle}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
-            style={{
-              background: current?.published ? 'rgba(34,197,94,0.1)' : 'rgba(255,255,255,0.04)',
-              border: current?.published ? '1px solid rgba(34,197,94,0.25)' : '1px solid rgba(255,255,255,0.08)',
-              color: current?.published ? '#4ade80' : '#94a3b8',
-            }}>
-            <Globe size={13} />
-            {current?.published ? 'Published' : 'Publish'}
-          </button>
-          <button onClick={() => current && downloadPortfolio(current)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
-            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#94a3b8' }}>
-            <Download size={13} /> Download
-          </button>
-          <button onClick={handleSave} disabled={saving} className="btn-primary py-1.5 px-4 text-xs">
-            {saving ? <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Save size={13} /> Save</>}
-          </button>
-        </div>
+        <nav className="flex-1 py-2 px-2 space-y-0.5 overflow-y-auto">
+          {SECTIONS.map(({ key, label, icon: Icon }) => (
+            <button
+              key={key}
+              onClick={() => setActiveSection(key)}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all text-left"
+              style={{
+                background: activeSection === key ? 'rgba(99,102,241,0.12)' : 'transparent',
+                color: activeSection === key ? '#a5b4fc' : '#94a3b8',
+                border: activeSection === key ? '1px solid rgba(99,102,241,0.25)' : '1px solid transparent',
+              }}
+            >
+              <Icon size={15} />
+              {label}
+            </button>
+          ))}
+        </nav>
       </div>
 
-      {/* Main layout */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left sidebar */}
-        <div className="w-56 flex-shrink-0 flex flex-col overflow-hidden"
-          style={{ background: '#0a0a14', borderRight: '1px solid rgba(255,255,255,0.05)' }}>
-          {/* Tabs */}
-          <div className="flex border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-            {[
-              { id: 'sections', icon: Layers, label: 'Sections' },
-              { id: 'add', icon: Settings, label: 'Add' },
-            ].map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium transition-colors"
-                style={{ color: activeTab === tab.id ? '#818cf8' : '#64748b', borderBottom: activeTab === tab.id ? '2px solid #6366f1' : '2px solid transparent' }}>
-                <tab.icon size={13} /> {tab.label}
-              </button>
-            ))}
-          </div>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-h-screen">
+        {/* Top Bar */}
+        <div className="flex items-center justify-between px-8 py-4 flex-shrink-0"
+          style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <h1 className="font-display font-bold text-2xl text-white">{activeLabel}</h1>
+          <button onClick={handlePublish}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all"
+            style={{
+              background: current?.published ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              boxShadow: current?.published ? '0 0 20px rgba(34,197,94,0.3)' : '0 0 20px rgba(99,102,241,0.3)',
+            }}>
+            <Rocket size={15} />
+            {current?.published ? 'Published' : 'Publish Portfolio'}
+          </button>
+        </div>
 
-          {/* Tab content */}
-          <div className="flex-1 overflow-y-auto">
-            {activeTab === 'sections' && (
-              <div className="p-3">
-                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2 px-1">Sections</p>
-                {sorted.length === 0 ? (
-                  <p className="text-xs text-slate-600 text-center py-8 px-2">No sections yet. Switch to Add tab to add one.</p>
-                ) : (
-                  <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                    <SortableContext items={sorted.map(s => s.id)} strategy={verticalListSortingStrategy}>
-                      {sorted.map(section => (
-                        <DraggableSection
-                          key={section.id}
-                          section={section}
-                          isSelected={selectedSection === section.id}
-                          onClick={() => setSelectedSection(section.id)}
-                        />
-                      ))}
-                    </SortableContext>
-                  </DndContext>
-                )}
+        {/* Form Area */}
+        <div className="flex-1 overflow-y-auto px-8 py-6">
+          <div className="max-w-3xl">
+            {/* Save Status */}
+            <div className="flex items-center gap-3 mb-6 rounded-xl px-4 py-3"
+              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
+                style={{ background: 'rgba(255,255,255,0.06)', color: '#e2e8f0' }}>
+                <Clock size={12} />
+                {saving ? 'Saving...' : 'Saved'}
               </div>
-            )}
-            {activeTab === 'add' && <SectionPanel />}
-          </div>
-        </div>
-
-        {/* Center editor */}
-        <div className="w-64 flex-shrink-0 overflow-y-auto"
-          style={{ background: '#0d0d1a', borderRight: '1px solid rgba(255,255,255,0.05)' }}>
-          <div className="sticky top-0 px-4 py-2.5 z-10" style={{ background: '#0d0d1a', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">
-              {selectedSectionData ? `Edit: ${selectedSectionData.type}` : 'Select a section'}
-            </p>
-          </div>
-          {selectedSectionData ? (
-            <SectionEditor section={selectedSectionData} />
-          ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-center px-6">
-              <p className="text-xs text-slate-600">Click a section in the left panel to edit its content</p>
+              {lastSaved && (
+                <span className="text-xs text-slate-500">
+                  {lastSaved.toLocaleTimeString()}
+                </span>
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Preview */}
-        <div className="flex-1 overflow-y-auto" style={{ background: '#050510' }}>
-          <div className="sticky top-0 px-4 py-2.5 z-10 flex items-center justify-between"
-            style={{ background: 'rgba(5,5,16,0.9)', backdropFilter: 'blur(8px)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Preview</p>
-            {current?.published && current?.slug && (
-              <a href={`/p/${current.slug}`} target="_blank" rel="noopener noreferrer"
-                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-                View live
-              </a>
-            )}
+            {renderForm()}
+
+            {/* Save Button */}
+            <div className="flex justify-end mt-8 pb-8">
+              <button onClick={handleSave} disabled={saving}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all"
+                style={{
+                  background: saving ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.08)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  color: saving ? '#64748b' : '#e2e8f0',
+                }}>
+                <Save size={15} />
+                Save
+              </button>
+            </div>
           </div>
-          <PortfolioPreview portfolio={current} />
         </div>
       </div>
     </div>

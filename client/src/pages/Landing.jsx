@@ -126,7 +126,7 @@ export default function Landing() {
             <div className="flex" style={{ background: '#0d0d1a', minHeight: '340px' }}>
               <div className="w-56 p-4" style={{ borderRight: '1px solid rgba(255,255,255,0.04)' }}>
                 <div className="text-xs font-medium text-slate-500 mb-3 uppercase tracking-wider">Sections</div>
-                {['Hero', 'About', 'Skills', 'Projects', 'Contact'].map((s, i) => (
+                {['General Info', 'Work Experience', 'Education', 'Certifications', 'Projects','Contact','Background'].map((s, i) => (
                   <div key={s} className="flex items-center gap-2 px-3 py-2 rounded-lg mb-1 text-xs"
                     style={{ background: i === 0 ? 'rgba(99,102,241,0.15)' : 'transparent', color: i === 0 ? '#a5b4fc' : '#64748b', border: i === 0 ? '1px solid rgba(99,102,241,0.2)' : '1px solid transparent' }}>
                     <div className="w-1 h-4 rounded-sm" style={{ background: i === 0 ? '#6366f1' : 'rgba(255,255,255,0.1)' }} />

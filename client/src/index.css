@@ -63,5 +63,12 @@
   }
   .input-field:focus { border-color: rgba(99, 102, 241, 0.5); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
   .input-field::placeholder { color: #64748b; }
+  .input-sm {
+    width: 100%; padding: 0.4rem 0.6rem; border-radius: 0.5rem; font-size: 0.75rem;
+    color: #e2e8f0; outline: none; transition: all 0.2s; background: #0f0f1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .input-sm:focus { border-color: rgba(99, 102, 241, 0.5); box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1); }
+  .input-sm::placeholder { color: #64748b; }
   .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent); }
 }

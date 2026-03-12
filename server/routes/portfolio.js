@@ -14,10 +14,11 @@ const generateSlug = async (title, userId) => {
   return slug;
 };
 
+// List all portfolios for logged-in user
 router.get('/', auth, async (req, res) => {
   try {
     const portfolios = await Portfolio.find({ user: req.user._id })
-      .select('-sections')
+      .select('title slug published views updatedAt createdAt')
       .sort({ updatedAt: -1 });
     res.json({ portfolios });
   } catch (err) {
@@ -25,6 +26,7 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// Create new portfolio
 router.post('/', auth, async (req, res) => {
   try {
     const { title } = req.body;
@@ -36,20 +38,7 @@ router.post('/', auth, async (req, res) => {
       user: req.user._id,
       title,
       slug,
-      sections: [
-        {
-          id: 'hero-default',
-          type: 'hero',
-          order: 0,
-          data: {
-            name: '',
-            title: '',
-            subtitle: '',
-            ctaText: '',
-            ctaLink: ''
-          }
-        }
-      ]
+      general: { displayName: req.user.name || '' },
     });
 
     res.status(201).json({ portfolio });
@@ -58,6 +47,7 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// Public portfolio by slug
 router.get('/public/:slug', async (req, res) => {
   try {
     const portfolio = await Portfolio.findOne({
@@ -73,6 +63,7 @@ router.get('/public/:slug', async (req, res) => {
   }
 });
 
+// Get single portfolio (owner only)
 router.get('/:id', auth, async (req, res) => {
   try {
     const portfolio = await Portfolio.findOne({
@@ -86,18 +77,25 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// Update portfolio
 router.put('/:id', auth, async (req, res) => {
   try {
-    const { title, theme, sections, published } = req.body;
+    const allowedFields = [
+      'title', 'general', 'workExperience', 'education', 'certifications',
+      'projects', 'sideProjects', 'volunteering', 'speaking', 'writing',
+      'contact', 'background', 'published'
+    ];
 
     const update = {};
-    if (title !== undefined) {
-      update.title = title;
-      update.slug = await generateSlug(title, req.user._id);
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) {
+        update[field] = req.body[field];
+      }
     }
-    if (theme !== undefined) update.theme = theme;
-    if (sections !== undefined) update.sections = sections;
-    if (published !== undefined) update.published = published;
+
+    if (update.title) {
+      update.slug = await generateSlug(update.title, req.user._id);
+    }
 
     const portfolio = await Portfolio.findOneAndUpdate(
       { _id: req.params.id, user: req.user._id },
@@ -112,6 +110,7 @@ router.put('/:id', auth, async (req, res) => {
   }
 });
 
+// Delete portfolio
 router.delete('/:id', auth, async (req, res) => {
   try {
     const portfolio = await Portfolio.findOneAndDelete({

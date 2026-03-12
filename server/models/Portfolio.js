@@ -1,15 +1,71 @@
 const mongoose = require('mongoose');
 
-const sectionSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  type: {
-    type: String,
-    enum: ['hero', 'about', 'skills', 'projects', 'experience', 'education', 'contact'],
-    required: true
-  },
-  order: { type: Number, required: true },
-  data: { type: mongoose.Schema.Types.Mixed, default: {} }
-});
+const workExperienceSchema = new mongoose.Schema({
+  company: { type: String, default: '' },
+  role: { type: String, default: '' },
+  startDate: { type: String, default: '' },
+  endDate: { type: String, default: '' },
+  current: { type: Boolean, default: false },
+  description: { type: String, default: '' },
+}, { _id: false });
+
+const educationSchema = new mongoose.Schema({
+  school: { type: String, default: '' },
+  degree: { type: String, default: '' },
+  field: { type: String, default: '' },
+  startDate: { type: String, default: '' },
+  endDate: { type: String, default: '' },
+  description: { type: String, default: '' },
+}, { _id: false });
+
+const certificationSchema = new mongoose.Schema({
+  name: { type: String, default: '' },
+  issuer: { type: String, default: '' },
+  date: { type: String, default: '' },
+  url: { type: String, default: '' },
+}, { _id: false });
+
+const projectSchema = new mongoose.Schema({
+  title: { type: String, default: '' },
+  description: { type: String, default: '' },
+  tech: { type: String, default: '' },
+  link: { type: String, default: '' },
+  image: { type: String, default: '' },
+}, { _id: false });
+
+const sideProjectSchema = new mongoose.Schema({
+  title: { type: String, default: '' },
+  description: { type: String, default: '' },
+  link: { type: String, default: '' },
+}, { _id: false });
+
+const volunteeringSchema = new mongoose.Schema({
+  organization: { type: String, default: '' },
+  role: { type: String, default: '' },
+  startDate: { type: String, default: '' },
+  endDate: { type: String, default: '' },
+  description: { type: String, default: '' },
+}, { _id: false });
+
+const speakingSchema = new mongoose.Schema({
+  title: { type: String, default: '' },
+  event: { type: String, default: '' },
+  date: { type: String, default: '' },
+  url: { type: String, default: '' },
+}, { _id: false });
+
+const writingSchema = new mongoose.Schema({
+  title: { type: String, default: '' },
+  publication: { type: String, default: '' },
+  date: { type: String, default: '' },
+  url: { type: String, default: '' },
+}, { _id: false });
+
+const contactLinkSchema = new mongoose.Schema({
+  platform: { type: String, default: '' },
+  url: { type: String, default: '' },
+  label: { type: String, default: '' },
+}, { _id: false });
 
 const portfolioSchema = new mongoose.Schema({
   user: {
@@ -29,14 +85,34 @@ const portfolioSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
-  theme: {
-    primaryColor: { type: String, default: '#6366f1' },
-    accentColor: { type: String, default: '#8b5cf6' },
-    backgroundColor: { type: String, default: '#070712' },
-    textColor: { type: String, default: '#f1f5f9' },
-    fontFamily: { type: String, default: 'Inter' }
+  general: {
+    displayName: { type: String, default: '' },
+    profession: { type: String, default: '' },
+    location: { type: String, default: '' },
+    pronouns: { type: String, default: '' },
+    website: { type: String, default: '' },
+    about: { type: String, default: '' },
+    avatar: { type: String, default: '' },
+    media: [{ type: String }],
   },
-  sections: [sectionSchema],
+  workExperience: [workExperienceSchema],
+  education: [educationSchema],
+  certifications: [certificationSchema],
+  projects: [projectSchema],
+  sideProjects: [sideProjectSchema],
+  volunteering: [volunteeringSchema],
+  speaking: [speakingSchema],
+  writing: [writingSchema],
+  contact: {
+    email: { type: String, default: '' },
+    phone: { type: String, default: '' },
+    links: [contactLinkSchema],
+  },
+  background: {
+    type: { type: String, enum: ['color', 'gradient', 'effect'], default: 'color' },
+    value: { type: String, default: '#070712' },
+    config: { type: mongoose.Schema.Types.Mixed, default: {} }
+  },
   published: { type: Boolean, default: false },
   views: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
