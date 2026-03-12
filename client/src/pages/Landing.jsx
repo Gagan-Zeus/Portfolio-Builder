@@ -25,17 +25,17 @@ function AnimatedCounter({ target, suffix = '' }) {
 }
 
 const features = [
-  { icon: MousePointer2, title: 'Drag & Drop Builder', desc: 'Intuitively arrange sections with smooth drag-and-drop. No code required — just drag, drop, and done.' },
+  { icon: Layers, title: 'Form-Based Builder', desc: 'Fill in structured forms for each section — General Info, Work Experience, Projects, and more. No code required.' },
   { icon: Eye, title: 'Real-Time Preview', desc: 'See your portfolio update live as you type. What you build is exactly what your visitors see.' },
-  { icon: Palette, title: 'Custom Themes', desc: 'Choose from curated color palettes or define your own. Every detail, every color, fully yours.' },
-  { icon: Layers, title: 'Modular Sections', desc: 'Hero, About, Skills, Projects, Experience, Education, Contact — add only what you need.' },
+  { icon: Palette, title: 'Animated Backgrounds', desc: 'Choose from 10 dark-themed animated backgrounds — Particles, Aurora, Star Field, Floating Orbs, and more.' },
+  { icon: MousePointer2, title: 'Drag & Drop Avatar', desc: 'Upload your profile photo with a simple drag-and-drop. No URL copying needed — just drop your image.' },
   { icon: Globe, title: 'One-Click Publish', desc: 'Get a shareable public URL instantly. Share your portfolio link with anyone, anywhere.' },
   { icon: Zap, title: 'Lightning Fast', desc: 'Built on MongoDB Atlas. Your portfolio loads in milliseconds, globally, every time.' },
 ]
 
 const steps = [
   { n: '01', icon: Code2, title: 'Create Account', desc: 'Sign up in seconds and access your personal portfolio workspace immediately.' },
-  { n: '02', icon: Layout, title: 'Build Your Portfolio', desc: 'Add sections, drag to reorder, fill in your details and customize colors.' },
+  { n: '02', icon: Layout, title: 'Build Your Portfolio', desc: 'Fill in each section — experience, projects, education — and pick an animated background.' },
   { n: '03', icon: Monitor, title: 'Publish & Share', desc: 'Hit publish and get a live public URL. Share it on LinkedIn, your resume, anywhere.' },
 ]
 
@@ -101,7 +101,7 @@ export default function Landing() {
 
           <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={2}
             className="text-slate-400 mb-10" style={{ maxWidth: '520px', margin: '0 auto 2.5rem', fontSize: '1rem', lineHeight: '1.7' }}>
-            Drag-and-drop sections, customise every detail, preview in real-time, and publish with a single click. No code. No fuss.
+            Fill in structured forms, choose animated backgrounds, upload your photo, and publish with a single click. No code. No fuss.
           </motion.p>
 
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={3} className="flex flex-wrap gap-4 justify-center">
@@ -247,7 +247,7 @@ export default function Landing() {
       </section>
 
       <footer className="py-8 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-        <p className="text-xs text-slate-600">2024 DevFolio. Built with React, Node.js & MongoDB Atlas.</p>
+        <p className="text-xs text-slate-600">2026 DevFolio. Built with React, Node.js & MongoDB Atlas.</p>
       </footer>
 
       <style>{`@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }`}</style>

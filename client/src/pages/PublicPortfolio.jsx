@@ -232,7 +232,7 @@ export default function PublicPortfolio() {
             <p className="text-slate-400 mb-6">Feel free to reach out!</p>
             <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
               {contact.email && (
-                <a href={`mailto:${contact.email}`} className="btn-primary inline-flex">{contact.email}</a>
+                <a href={`mailto:${contact.email.replace(/^mailto:/i, '')}`} className="btn-primary inline-flex">{contact.email.replace(/^mailto:/i, '')}</a>
               )}
               {contact.phone && (
                 <span className="text-slate-300">{contact.phone}</span>
