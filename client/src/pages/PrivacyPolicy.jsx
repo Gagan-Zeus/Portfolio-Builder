@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
         <div style={sectionStyle}>
           <h2 style={headingStyle}>1. Information We Collect</h2>
           <p style={paraStyle}>
-            We collect information you provide directly to us, including your name, email address, profile data, and portfolio content. If you sign in using Google or GitHub OAuth, we receive basic profile information (name, email, and avatar) from those services.
+            We collect information you provide directly to us, including your name, email address, profile data, and portfolio content. If you sign in using Google or GitHub OAuth, we receive basic profile information (name, email) from those services.
           </p>
         </div>
 

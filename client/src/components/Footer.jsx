@@ -9,18 +9,10 @@ export default function Footer() {
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px 0' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 40, marginBottom: 40 }}>
 
-          {/* Product */}
-          <div>
-            <h4 style={colHeadingStyle}>Product</h4>
-            <Link to="/dashboard" style={colLinkStyle}>Portfolio Builder</Link>
-            <Link to="/dashboard" style={colLinkStyle}>Templates</Link>
-          </div>
 
           {/* Support */}
           <div>
             <h4 style={colHeadingStyle}>Support</h4>
-            <Link to="/contact" style={colLinkStyle}>Help Center</Link>
-            <Link to="/contact" style={colLinkStyle}>Contact Us</Link>
             <Link to="/contact" style={colLinkStyle}>Report an Issue</Link>
           </div>
 
@@ -59,10 +51,9 @@ export default function Footer() {
           alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            <Link to="/terms" style={{ fontSize: 12, color: '#888', textDecoration: 'none' }}>Terms of Use</Link>
-            <Link to="/privacy" style={{ fontSize: 12, color: '#888', textDecoration: 'none' }}>Privacy Policy</Link>
+            <p style={{ fontSize: 12, color: '#888', margin: 0 }}>© 2026 DevFolio</p>
           </div>
-          <p style={{ fontSize: 12, color: '#888', margin: 0 }}>© 2026 DevFolio</p>
+
         </div>
       </div>
     </footer>

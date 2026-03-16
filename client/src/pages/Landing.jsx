@@ -247,9 +247,17 @@ export default function Landing() {
         </motion.div>
       </section>
 
-      <footer className="py-8 text-center" style={{ borderTop: '1px solid #e5e7eb' }}>
-        <p className="text-xs" style={{ color: '#888' }}>2026 DevFolio. Built with React, Node.js & MongoDB Atlas.</p>
-      </footer>
+
+      <div style={{
+          borderTop: '1px solid #e5e7eb', padding: '20px 0', display: 'flex', marginLeft: 42, marginRight: 42,
+          alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            <Link to="/terms" style={{ fontSize: 12, color: '#888', textDecoration: 'none' }}>Terms of Use</Link>
+            <Link to="/privacy" style={{ fontSize: 12, color: '#888', textDecoration: 'none' }}>Privacy Policy</Link>
+          </div>
+          <p style={{ fontSize: 12, color: '#888', margin: 0 }}>© 2026 DevFolio</p>
+        </div>
 
       <style>{`@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }`}</style>
     </div>

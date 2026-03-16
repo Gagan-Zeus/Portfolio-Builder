@@ -364,17 +364,6 @@ export default function AuthPage() {
             )}
           </AnimatePresence>
         </div>
-        <p style={{ textAlign: 'center', fontSize: 11, color: '#999', marginTop: 20, paddingBottom: 8 }}>
-          By continuing, you agree to DevFolio's{' '}
-          <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: '#999', textDecoration: 'underline' }}
-            onMouseEnter={e => e.target.style.color = '#4f46e5'} onMouseLeave={e => e.target.style.color = '#999'}>
-            Terms of Use
-          </a>{' '}and{' '}
-          <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#999', textDecoration: 'underline' }}
-            onMouseEnter={e => e.target.style.color = '#4f46e5'} onMouseLeave={e => e.target.style.color = '#999'}>
-            Privacy Policy
-          </a>.
-        </p>
       </div>
     </div>
   )
@@ -424,11 +413,17 @@ function EmailStep({ email, setEmail, error, loading, onSubmit }) {
         </button>
       </form>
 
-      <p className="text-xs mt-5 text-center leading-relaxed" style={{ color: '#9ca3af' }}>
-        By continuing, you agree to DevFolio's{' '}
-        <span className="underline cursor-pointer">Terms of Use</span> and{' '}
-        <span className="underline cursor-pointer">Privacy Policy</span>.
-      </p>
+      <p style={{ textAlign: 'center', fontSize: 11, color: '#999', marginTop: 20, paddingBottom: 8 }}>
+          By continuing, you agree to DevFolio's{' '}
+          <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ color: '#999', textDecoration: 'underline' }}
+            onMouseEnter={e => e.target.style.color = '#4f46e5'} onMouseLeave={e => e.target.style.color = '#999'}>
+            Terms of Use
+          </a>{' '}and{' '}
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#999', textDecoration: 'underline' }}
+            onMouseEnter={e => e.target.style.color = '#4f46e5'} onMouseLeave={e => e.target.style.color = '#999'}>
+            Privacy Policy
+          </a>.
+        </p>
     </div>
   )
 }
