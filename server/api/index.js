@@ -60,6 +60,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+app.get('/api/debug-env', (req, res) => {
+  res.json({
+    SERVER_URL: process.env.SERVER_URL || '(not set)',
+    callbackURL: `${process.env.SERVER_URL || 'http://localhost:5000'}/api/auth/google/callback`,
+    hasGoogleId: !!process.env.GOOGLE_CLIENT_ID,
+  });
+});
+
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
