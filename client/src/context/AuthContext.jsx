@@ -60,6 +60,18 @@ export function AuthProvider({ children }) {
     return data
   }
 
+  const updateProfile = async ({ name, avatar }) => {
+    const { data } = await api.put('/auth/profile', { name, avatar })
+    localStorage.setItem('user', JSON.stringify(data.user))
+    setUser(data.user)
+    return data.user
+  }
+
+  const changePassword = async (currentPassword, newPassword) => {
+    const { data } = await api.put('/auth/password', { currentPassword, newPassword })
+    return data
+  }
+
   const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -68,9 +80,11 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{
-      user, loading,
+      user, loading, setUser,
       checkEmail, registerUser, loginUser,
-      sendOtp, verifyOtp, logout
+      sendOtp, verifyOtp,
+      updateProfile, changePassword,
+      logout
     }}>
       {children}
     </AuthContext.Provider>
