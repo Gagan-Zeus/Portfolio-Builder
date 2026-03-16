@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { usePortfolio } from '../context/PortfolioContext'
 import toast from 'react-hot-toast'
-import { Save, Rocket, Clock, Briefcase, GraduationCap, Award, FolderOpen, Layers, Heart, Mic, PenTool, Mail, Palette, User } from 'lucide-react'
+import { Save, Rocket, Clock, Briefcase, GraduationCap, Award, FolderOpen, Layers, Heart, Mic, PenTool, Mail, Palette, User, LayoutDashboard } from 'lucide-react'
 import GeneralInfoForm from '../components/sections/GeneralInfoForm'
 import WorkExperienceForm from '../components/sections/WorkExperienceForm'
 import EducationForm from '../components/sections/EducationForm'
@@ -154,6 +154,14 @@ export default function Builder() {
             </button>
           ))}
         </nav>
+        <div className="px-2 py-3" style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+          <Link to="/dashboard"
+            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all text-left"
+            style={{ color: '#4f46e5', background: 'rgba(99,102,241,0.06)' }}>
+            <LayoutDashboard size={15} />
+            Dashboard
+          </Link>
+        </div>
       </div>
 
       {/* Main Content */}
