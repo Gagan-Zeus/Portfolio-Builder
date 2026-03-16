@@ -192,7 +192,7 @@ router.post('/otp/verify', async (req, res) => {
     const realToken = signToken(user._id);
     res.json({
       token: realToken,
-      user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar },
+      user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, createdAt: user.createdAt },
     });
   } catch (err) {
     res.status(500).json({ message: err.message || 'Server error' });
@@ -270,6 +270,7 @@ router.get('/me', authMiddleware, async (req, res) => {
       email: req.user.email,
       avatar: req.user.avatar,
       authProviders: req.user.authProviders,
+      createdAt: req.user.createdAt,
     },
   });
 });
@@ -289,7 +290,7 @@ router.put('/profile', authMiddleware, async (req, res) => {
     }
     const user = await User.findByIdAndUpdate(req.user._id, update, { new: true });
     res.json({
-      user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, authProviders: user.authProviders },
+      user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, authProviders: user.authProviders, createdAt: user.createdAt },
     });
   } catch (err) {
     res.status(500).json({ message: err.message || 'Server error' });
