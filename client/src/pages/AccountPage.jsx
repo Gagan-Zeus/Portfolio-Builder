@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import { usePortfolio } from '../context/PortfolioContext'
 import toast from 'react-hot-toast'
 import { ArrowLeft, Camera, FileText, Globe, TrendingUp, Lock, Shield, Check, Loader2 } from 'lucide-react'
+import ImageCropModal from '../components/ImageCropModal'
 
 export default function AccountPage() {
   const { user, updateProfile, changePassword } = useAuth()
@@ -22,6 +23,7 @@ export default function AccountPage() {
   const [savingPassword, setSavingPassword] = useState(false)
 
   const fileRef = useRef(null)
+  const [cropSrc, setCropSrc] = useState(null)
 
   const hasLocalAuth = user?.authProviders?.includes('local')
 
@@ -39,8 +41,9 @@ export default function AccountPage() {
     if (!file.type.startsWith('image/')) { toast.error('Please select an image'); return }
     if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return }
     const reader = new FileReader()
-    reader.onload = (ev) => setAvatar(ev.target.result)
+    reader.onload = (ev) => setCropSrc(ev.target.result)
     reader.readAsDataURL(file)
+    e.target.value = ''
   }
 
   const handleSaveProfile = async () => {
@@ -243,6 +246,14 @@ export default function AccountPage() {
           </div>
         </motion.div>
       </div>
+
+      {cropSrc && (
+        <ImageCropModal
+          imageSrc={cropSrc}
+          onCropDone={(cropped) => { setAvatar(cropped); setCropSrc(null) }}
+          onCancel={() => setCropSrc(null)}
+        />
+      )}
     </div>
   )
 }

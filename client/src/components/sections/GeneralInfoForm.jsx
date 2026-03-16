@@ -1,9 +1,12 @@
 import { useState, useRef, useCallback } from 'react'
 import { User, Upload, X, ImageIcon } from 'lucide-react'
+import ImageCropModal from '../ImageCropModal'
+
 
 export default function GeneralInfoForm({ data, onChange }) {
   const g = data || {}
   const [dragging, setDragging] = useState(false)
+  const [cropSrc, setCropSrc] = useState(null)
   const fileRef = useRef(null)
 
   const update = (field, value) => {
@@ -17,9 +20,9 @@ export default function GeneralInfoForm({ data, onChange }) {
       return
     }
     const reader = new FileReader()
-    reader.onload = (e) => update('avatar', e.target.result)
+    reader.onload = (e) => setCropSrc(e.target.result)
     reader.readAsDataURL(file)
-  }, [g])
+  }, [])
 
   const onDrop = useCallback((e) => {
     e.preventDefault()
@@ -36,6 +39,7 @@ export default function GeneralInfoForm({ data, onChange }) {
   const onDragLeave = useCallback(() => setDragging(false), [])
 
   return (
+    <>
     <div className="space-y-6">
       {/* Avatar drop zone */}
       <div>
@@ -122,5 +126,14 @@ export default function GeneralInfoForm({ data, onChange }) {
         <textarea className="input-field min-h-[140px] resize-y" placeholder="Tell us about yourself" value={g.about || ''} onChange={e => update('about', e.target.value)} />
       </div>
     </div>
+
+      {cropSrc && (
+        <ImageCropModal
+          imageSrc={cropSrc}
+          onCropDone={(cropped) => { update('avatar', cropped); setCropSrc(null) }}
+          onCancel={() => setCropSrc(null)}
+        />
+      )}
+    </>
   )
 }
