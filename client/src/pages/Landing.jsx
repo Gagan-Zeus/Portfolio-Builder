@@ -67,40 +67,40 @@ export default function Landing() {
   }, [])
 
   return (
-    <div style={{ background: '#070712', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: '#ffffff', minHeight: '100vh', overflowX: 'hidden' }}>
       <Navbar />
 
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute" style={{ top: '-20%', left: '-10%', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-          <div className="absolute" style={{ bottom: '-10%', right: '-10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          <div className="absolute" style={{ top: '-20%', left: '-10%', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+          <div className="absolute" style={{ bottom: '-10%', right: '-10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(99,102,241,0.08) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         </div>
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 max-w-5xl mx-auto px-6 pt-16 text-center">
 
           <motion.h1 variants={fadeUp} initial="hidden" animate="visible"
             className="font-display font-bold leading-[1.1] tracking-tight mb-6"
-            style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)', color: '#f1f5f9' }}>
+            style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)', color: '#1a1a1a' }}>
             Build portfolios that<br />
             <span className="gradient-text">get you hired</span>
           </motion.h1>
 
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1}
-            className="text-lg text-slate-400 mb-4" style={{ maxWidth: '580px', margin: '0 auto 1.5rem' }}>
+            className="text-lg mb-4" style={{ color: '#555', maxWidth: '580px', margin: '0 auto 1.5rem' }}>
             The professional portfolio builder for{' '}
             <AnimatePresence mode="wait">
               <motion.span key={typedIndex}
                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                style={{ color: '#818cf8', fontWeight: 600, display: 'inline-block' }}>
+                style={{ color: '#6366f1', fontWeight: 600, display: 'inline-block' }}>
                 {words[typedIndex]}
               </motion.span>
             </AnimatePresence>
           </motion.div>
 
           <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={2}
-            className="text-slate-400 mb-10" style={{ maxWidth: '520px', margin: '0 auto 2.5rem', fontSize: '1rem', lineHeight: '1.7' }}>
+            className="mb-10" style={{ color: '#555', maxWidth: '520px', margin: '0 auto 2.5rem', fontSize: '1rem', lineHeight: '1.7' }}>
             Fill in structured forms, choose animated backgrounds, upload your photo, and publish with a single click. No code. No fuss.
           </motion.p>
 
@@ -116,34 +116,34 @@ export default function Landing() {
           <motion.div
             variants={fadeUp} initial="hidden" animate="visible" custom={5}
             className="mt-20 relative mx-auto rounded-2xl overflow-hidden"
-            style={{ maxWidth: '860px', boxShadow: '0 40px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)', animation: 'float 6s ease-in-out infinite' }}>
-            <div className="flex items-center gap-2 px-4 py-3" style={{ background: '#0f0f1a', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="w-3 h-3 rounded-full bg-red-500/60" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-              <div className="w-3 h-3 rounded-full bg-green-500/60" />
-              <div className="flex-1 mx-4 h-5 rounded-md" style={{ background: '#1a1a2e', fontSize: '11px', color: '#4a4a6a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>devfolio.app/builder</div>
+            style={{ maxWidth: '860px', boxShadow: '0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px #e5e7eb', animation: 'float 6s ease-in-out infinite' }}>
+            <div className="flex items-center gap-2 px-4 py-3" style={{ background: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
+              <div className="w-3 h-3 rounded-full" style={{ background: '#fca5a5' }} />
+              <div className="w-3 h-3 rounded-full" style={{ background: '#fcd34d' }} />
+              <div className="w-3 h-3 rounded-full" style={{ background: '#86efac' }} />
+              <div className="flex-1 mx-4 h-5 rounded-md" style={{ background: '#f0f0f0', fontSize: '11px', color: '#999', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>devfolio.app/builder</div>
             </div>
-            <div className="flex" style={{ background: '#0d0d1a', minHeight: '340px' }}>
-              <div className="w-56 p-4" style={{ borderRight: '1px solid rgba(255,255,255,0.04)' }}>
-                <div className="text-xs font-medium text-slate-500 mb-3 uppercase tracking-wider">Sections</div>
+            <div className="flex" style={{ background: '#ffffff', minHeight: '340px' }}>
+              <div className="w-56 p-4" style={{ borderRight: '1px solid #e5e7eb' }}>
+                <div className="text-xs font-medium mb-3 uppercase tracking-wider" style={{ color: '#888' }}>Sections</div>
                 {['General Info', 'Work Experience', 'Education', 'Certifications', 'Projects','Contact','Background'].map((s, i) => (
                   <div key={s} className="flex items-center gap-2 px-3 py-2 rounded-lg mb-1 text-xs"
-                    style={{ background: i === 0 ? 'rgba(99,102,241,0.15)' : 'transparent', color: i === 0 ? '#a5b4fc' : '#64748b', border: i === 0 ? '1px solid rgba(99,102,241,0.2)' : '1px solid transparent' }}>
-                    <div className="w-1 h-4 rounded-sm" style={{ background: i === 0 ? '#6366f1' : 'rgba(255,255,255,0.1)' }} />
+                    style={{ background: i === 0 ? 'rgba(99,102,241,0.08)' : 'transparent', color: i === 0 ? '#4f46e5' : '#888', border: i === 0 ? '1px solid #c7d2fe' : '1px solid transparent' }}>
+                    <div className="w-1 h-4 rounded-sm" style={{ background: i === 0 ? '#6366f1' : '#e5e7eb' }} />
                     {s}
                   </div>
                 ))}
               </div>
               <div className="flex-1 p-6">
-                <div className="rounded-xl p-6 mb-3" style={{ background: 'linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.1))', border: '1px solid rgba(99,102,241,0.15)' }}>
+                <div className="rounded-xl p-6 mb-3" style={{ background: 'linear-gradient(135deg, #eef2ff, #e8f0fe)', border: '1px solid #c7d2fe' }}>
                   <div className="w-16 h-16 rounded-full mb-3" style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }} />
-                  <div className="h-5 w-40 rounded-md mb-2" style={{ background: 'rgba(255,255,255,0.15)' }} />
-                  <div className="h-3 w-60 rounded-md" style={{ background: 'rgba(255,255,255,0.07)' }} />
+                  <div className="h-5 w-40 rounded-md mb-2" style={{ background: 'rgba(99,102,241,0.15)' }} />
+                  <div className="h-3 w-60 rounded-md" style={{ background: 'rgba(99,102,241,0.08)' }} />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {[80, 65, 90].map((w, i) => (
-                    <div key={i} className="rounded-lg p-3" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.04)' }}>
-                      <div className="h-2 w-full rounded-full mb-1" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                    <div key={i} className="rounded-lg p-3" style={{ background: '#f9fafb', border: '1px solid #e5e7eb' }}>
+                      <div className="h-2 w-full rounded-full mb-1" style={{ background: '#e5e7eb' }}>
                         <div className="h-2 rounded-full" style={{ width: `${w}%`, background: 'linear-gradient(90deg,#6366f1,#8b5cf6)' }} />
                       </div>
                     </div>
@@ -166,7 +166,7 @@ export default function Landing() {
               <div className="font-display font-bold text-4xl mb-1 gradient-text">
                 <AnimatedCounter target={s.value} suffix={s.suffix} />
               </div>
-              <div className="text-sm text-slate-500">{s.label}</div>
+              <div className="text-sm" style={{ color: '#888' }}>{s.label}</div>
             </motion.div>
           ))}
         </div>
@@ -175,12 +175,12 @@ export default function Landing() {
 
       <section id="features" ref={featuresRef} className="py-24 max-w-7xl mx-auto px-6">
         <motion.div variants={fadeUp} initial="hidden" animate={featuresInView ? 'visible' : 'hidden'} className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium text-indigo-300 mb-4"
-            style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)' }}>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-4"
+            style={{ color: '#4f46e5', background: 'rgba(99,102,241,0.08)', border: '1px solid #c7d2fe' }}>
             Everything you need
           </div>
-          <h2 className="font-display font-bold text-4xl text-white mb-4">Built for professionals</h2>
-          <p className="text-slate-400 text-lg max-w-xl mx-auto">Every feature designed to make portfolio creation faster, easier, and more impressive.</p>
+          <h2 className="font-display font-bold text-4xl mb-4" style={{ color: '#1a1a1a' }}>Built for professionals</h2>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: '#555' }}>Every feature designed to make portfolio creation faster, easier, and more impressive.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -188,13 +188,14 @@ export default function Landing() {
             <motion.div key={f.title}
               variants={fadeUp} initial="hidden" animate={featuresInView ? 'visible' : 'hidden'} custom={i * 0.5}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="card p-6 group">
+              className="p-6 rounded-2xl group"
+              style={{ background: '#ffffff', border: '1px solid #e5e7eb', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
               <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110"
-                style={{ background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.2)' }}>
-                <f.icon size={20} style={{ color: '#818cf8' }} />
+                style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid #c7d2fe' }}>
+                <f.icon size={20} style={{ color: '#6366f1' }} />
               </div>
-              <h3 className="font-semibold text-white mb-2">{f.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+              <h3 className="font-semibold mb-2" style={{ color: '#1a1a1a' }}>{f.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#555' }}>{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -204,28 +205,28 @@ export default function Landing() {
         <div className="section-divider" />
         <div className="max-w-5xl mx-auto px-6 py-24">
           <motion.div variants={fadeUp} initial="hidden" animate={stepsInView ? 'visible' : 'hidden'} className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium text-purple-300 mb-4"
-              style={{ background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.2)' }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-4"
+              style={{ color: '#7c3aed', background: 'rgba(139,92,246,0.08)', border: '1px solid #c4b5fd' }}>
               Simple process
             </div>
-            <h2 className="font-display font-bold text-4xl text-white mb-4">Up and running in minutes</h2>
-            <p className="text-slate-400 text-lg">Three steps from signup to a live professional portfolio.</p>
+            <h2 className="font-display font-bold text-4xl mb-4" style={{ color: '#1a1a1a' }}>Up and running in minutes</h2>
+            <p className="text-lg" style={{ color: '#555' }}>Three steps from signup to a live professional portfolio.</p>
           </motion.div>
 
           <div className="relative">
-            <div className="absolute top-12 left-0 right-0 hidden lg:block" style={{ height: '1px', background: 'linear-gradient(90deg, transparent 10%, rgba(99,102,241,0.3) 50%, transparent 90%)' }} />
+            <div className="absolute top-12 left-0 right-0 hidden lg:block" style={{ height: '1px', background: 'linear-gradient(90deg, transparent 10%, rgba(99,102,241,0.15) 50%, transparent 90%)' }} />
             <div className="grid lg:grid-cols-3 gap-8">
               {steps.map((s, i) => (
                 <motion.div key={s.n}
                   variants={fadeUp} initial="hidden" animate={stepsInView ? 'visible' : 'hidden'} custom={i * 0.2}
                   className="relative text-center">
                   <div className="w-24 h-24 rounded-2xl flex flex-col items-center justify-center mx-auto mb-6"
-                    style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1))', border: '1px solid rgba(99,102,241,0.2)' }}>
-                    <s.icon size={24} style={{ color: '#818cf8' }} />
-                    <span className="text-xs font-mono text-indigo-400 mt-1">{s.n}</span>
+                    style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid #c7d2fe' }}>
+                    <s.icon size={24} style={{ color: '#6366f1' }} />
+                    <span className="text-xs font-mono mt-1" style={{ color: '#4f46e5' }}>{s.n}</span>
                   </div>
-                  <h3 className="font-semibold text-white text-lg mb-3">{s.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{s.desc}</p>
+                  <h3 className="font-semibold text-lg mb-3" style={{ color: '#1a1a1a' }}>{s.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#555' }}>{s.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -236,18 +237,18 @@ export default function Landing() {
 
       <section className="py-32 max-w-4xl mx-auto px-6 text-center">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <h2 className="font-display font-bold text-5xl text-white mb-6 leading-tight">
+          <h2 className="font-display font-bold text-5xl mb-6 leading-tight" style={{ color: '#1a1a1a' }}>
             Your portfolio is<br /><span className="gradient-text">waiting to be built</span>
           </h2>
-          <p className="text-slate-400 text-lg mb-10 max-w-lg mx-auto">Join thousands of professionals who built their portfolio with DevFolio. Start for free, no credit card needed.</p>
+          <p className="text-lg mb-10 max-w-lg mx-auto" style={{ color: '#555' }}>Join thousands of professionals who built their portfolio with DevFolio. Start for free, no credit card needed.</p>
           <Link to="/auth" className="btn-primary text-base px-10 py-4 inline-flex">
             Build Your Portfolio <ArrowRight size={18} />
           </Link>
         </motion.div>
       </section>
 
-      <footer className="py-8 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-        <p className="text-xs text-slate-600">2026 DevFolio. Built with React, Node.js & MongoDB Atlas.</p>
+      <footer className="py-8 text-center" style={{ borderTop: '1px solid #e5e7eb' }}>
+        <p className="text-xs" style={{ color: '#888' }}>2026 DevFolio. Built with React, Node.js & MongoDB Atlas.</p>
       </footer>
 
       <style>{`@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }`}</style>
