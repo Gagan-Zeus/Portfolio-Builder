@@ -90,8 +90,8 @@ export default function Builder() {
   }, [handleSave])
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: '#070712' }}>
-      <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+    <div className="min-h-screen flex items-center justify-center" style={{ background: '#f5f5f7' }}>
+      <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
     </div>
   )
 
@@ -128,14 +128,14 @@ export default function Builder() {
   const activeLabel = SECTIONS.find(s => s.key === activeSection)?.label || ''
 
   return (
-    <div className="flex min-h-screen" style={{ background: '#070712' }}>
+    <div className="flex min-h-screen" style={{ background: '#f5f5f7' }}>
       {/* Left Sidebar */}
-      <div className="w-56 flex-shrink-0 flex flex-col" style={{ background: '#0a0a14', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="px-4 py-5 flex items-center gap-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="w-56 flex-shrink-0 flex flex-col" style={{ background: '#ffffff', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
+        <div className="px-4 py-5 flex items-center gap-2.5" style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(99,102,241,0.15)' }}>
             <FolderOpen size={16} className="text-indigo-400" />
           </div>
-          <span className="text-sm font-semibold text-white">Portfolio Builder</span>
+          <span className="text-sm font-semibold text-gray-900">Portfolio Builder</span>
         </div>
         <nav className="flex-1 py-2 px-2 space-y-0.5 overflow-y-auto">
           {SECTIONS.map(({ key, label, icon: Icon }) => (
@@ -144,9 +144,9 @@ export default function Builder() {
               onClick={() => setActiveSection(key)}
               className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all text-left"
               style={{
-                background: activeSection === key ? 'rgba(99,102,241,0.12)' : 'transparent',
-                color: activeSection === key ? '#a5b4fc' : '#94a3b8',
-                border: activeSection === key ? '1px solid rgba(99,102,241,0.25)' : '1px solid transparent',
+                background: activeSection === key ? 'rgba(99,102,241,0.08)' : 'transparent',
+                color: activeSection === key ? '#4f46e5' : '#64748b',
+                border: activeSection === key ? '1px solid rgba(99,102,241,0.2)' : '1px solid transparent',
               }}
             >
               <Icon size={15} />
@@ -160,8 +160,8 @@ export default function Builder() {
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top Bar */}
         <div className="flex items-center justify-between px-8 py-4 flex-shrink-0"
-          style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          <h1 className="font-display font-bold text-2xl text-white">{activeLabel}</h1>
+          style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+          <h1 className="font-display font-bold text-2xl text-gray-900">{activeLabel}</h1>
           <button onClick={handlePublish}
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all"
             style={{
@@ -178,14 +178,14 @@ export default function Builder() {
           <div className="max-w-3xl">
             {/* Save Status */}
             <div className="flex items-center gap-3 mb-6 rounded-xl px-4 py-3"
-              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.06)' }}>
               <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
-                style={{ background: 'rgba(255,255,255,0.06)', color: '#e2e8f0' }}>
+                style={{ background: 'rgba(0,0,0,0.05)', color: '#334155' }}>
                 <Clock size={12} />
                 {saving ? 'Saving...' : 'Saved'}
               </div>
               {lastSaved && (
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-slate-400">
                   {lastSaved.toLocaleTimeString()}
                 </span>
               )}
@@ -198,9 +198,9 @@ export default function Builder() {
               <button onClick={handleSave} disabled={saving}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all"
                 style={{
-                  background: saving ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.08)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  color: saving ? '#64748b' : '#e2e8f0',
+                  background: saving ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0.05)',
+                  border: '1px solid rgba(0,0,0,0.1)',
+                  color: saving ? '#94a3b8' : '#334155',
                 }}>
                 <Save size={15} />
                 Save

@@ -39,16 +39,16 @@ export default function GeneralInfoForm({ data, onChange }) {
     <div className="space-y-6">
       {/* Avatar drop zone */}
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">Profile Photo</label>
+        <label className="block text-sm font-medium text-slate-700 mb-2">Profile Photo</label>
         <div className="flex items-start gap-5">
           {/* Preview */}
           <div className="flex-shrink-0 relative group">
             <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden"
-              style={{ background: 'rgba(255,255,255,0.06)', border: '2px solid rgba(255,255,255,0.1)' }}>
+              style={{ background: 'rgba(0,0,0,0.04)', border: '2px solid rgba(0,0,0,0.1)' }}>
               {g.avatar ? (
                 <img src={g.avatar} alt="" className="w-full h-full object-cover" />
               ) : (
-                <User size={36} className="text-slate-500" />
+                <User size={36} className="text-slate-400" />
               )}
             </div>
             {g.avatar && (
@@ -72,16 +72,16 @@ export default function GeneralInfoForm({ data, onChange }) {
               flex flex-col items-center justify-center gap-2 py-6
               ${dragging
                 ? 'border-indigo-400 bg-indigo-500/10'
-                : 'border-slate-600 hover:border-slate-400 bg-white/[0.02] hover:bg-white/[0.04]'}`}
+                : 'border-slate-300 hover:border-slate-400 bg-black/[0.02] hover:bg-black/[0.04]'}`}
           >
             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors
-              ${dragging ? 'bg-indigo-500/20 text-indigo-400' : 'bg-white/5 text-slate-400'}`}>
+              ${dragging ? 'bg-indigo-500/20 text-indigo-400' : 'bg-black/5 text-slate-500'}`}>
               {dragging ? <Upload size={20} /> : <ImageIcon size={20} />}
             </div>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-slate-700">
               {dragging ? 'Drop image here' : 'Drag & drop an image, or click to browse'}
             </p>
-            <p className="text-xs text-slate-500">PNG, JPG, or WebP — max 5 MB</p>
+            <p className="text-xs text-slate-400">PNG, JPG, or WebP — max 5 MB</p>
           </div>
           <input ref={fileRef} type="file" accept="image/*" className="hidden"
             onChange={e => { processFile(e.target.files?.[0]); e.target.value = '' }} />
@@ -91,11 +91,11 @@ export default function GeneralInfoForm({ data, onChange }) {
       <div className="flex items-start gap-6">
         <div className="flex-1 grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">Display Name*</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">Display Name*</label>
             <input className="input-field" placeholder="Your name" value={g.displayName || ''} onChange={e => update('displayName', e.target.value)} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">Profession*</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">Profession*</label>
             <input className="input-field" placeholder="Software Engineer" value={g.profession || ''} onChange={e => update('profession', e.target.value)} />
           </div>
         </div>
@@ -103,22 +103,22 @@ export default function GeneralInfoForm({ data, onChange }) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5">Location*</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Location*</label>
           <input className="input-field" placeholder="City, State" value={g.location || ''} onChange={e => update('location', e.target.value)} />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5">Pronouns</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Pronouns</label>
           <input className="input-field" placeholder="He/Him" value={g.pronouns || ''} onChange={e => update('pronouns', e.target.value)} />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1.5">Website</label>
+        <label className="block text-sm font-medium text-slate-700 mb-1.5">Website</label>
         <input className="input-field" placeholder="https://yourwebsite.com" value={g.website || ''} onChange={e => update('website', e.target.value)} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1.5">About*</label>
+        <label className="block text-sm font-medium text-slate-700 mb-1.5">About*</label>
         <textarea className="input-field min-h-[140px] resize-y" placeholder="Tell us about yourself" value={g.about || ''} onChange={e => update('about', e.target.value)} />
       </div>
     </div>

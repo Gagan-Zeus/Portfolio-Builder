@@ -12,39 +12,39 @@ export default function VolunteeringForm({ data, onChange }) {
   return (
     <div className="space-y-4">
       {items.map((item, i) => (
-        <div key={i} className="rounded-xl p-5 space-y-4" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div key={i} className="rounded-xl p-5 space-y-4" style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.08)' }}>
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-slate-300">Volunteering {i + 1}</span>
-            <button onClick={() => remove(i)} className="text-red-400 hover:text-red-300 p-1"><Trash2 size={14} /></button>
+            <span className="text-sm font-medium text-slate-700">Volunteering {i + 1}</span>
+            <button onClick={() => remove(i)} className="text-red-500 hover:text-red-500 p-1"><Trash2 size={14} /></button>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Organization</label>
+              <label className="block text-xs text-slate-500 mb-1">Organization</label>
               <input className="input-field" placeholder="Organization name" value={item.organization} onChange={e => update(i, 'organization', e.target.value)} />
             </div>
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Role</label>
+              <label className="block text-xs text-slate-500 mb-1">Role</label>
               <input className="input-field" placeholder="Your role" value={item.role} onChange={e => update(i, 'role', e.target.value)} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Start Date</label>
+              <label className="block text-xs text-slate-500 mb-1">Start Date</label>
               <input className="input-field" placeholder="Jan 2023" value={item.startDate} onChange={e => update(i, 'startDate', e.target.value)} />
             </div>
             <div>
-              <label className="block text-xs text-slate-400 mb-1">End Date</label>
+              <label className="block text-xs text-slate-500 mb-1">End Date</label>
               <input className="input-field" placeholder="Present" value={item.endDate} onChange={e => update(i, 'endDate', e.target.value)} />
             </div>
           </div>
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Description</label>
+            <label className="block text-xs text-slate-500 mb-1">Description</label>
             <textarea className="input-field min-h-[80px] resize-y" placeholder="What did you do?" value={item.description} onChange={e => update(i, 'description', e.target.value)} />
           </div>
         </div>
       ))}
-      <button onClick={add} className="w-full py-3 rounded-xl text-sm font-medium text-slate-400 flex items-center justify-center gap-2 transition-colors hover:text-white"
-        style={{ border: '1px dashed rgba(255,255,255,0.1)' }}>
+      <button onClick={add} className="w-full py-3 rounded-xl text-sm font-medium text-slate-500 flex items-center justify-center gap-2 transition-colors hover:text-gray-900"
+        style={{ border: '1px dashed rgba(0,0,0,0.15)' }}>
         <Plus size={16} /> Add Volunteering
       </button>
     </div>
