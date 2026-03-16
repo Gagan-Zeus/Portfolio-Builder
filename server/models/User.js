@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters'],
     select: false
   },
@@ -26,6 +25,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  authProviders: {
+    type: [String],
+    default: ['local']
+  },
+  googleId: { type: String, sparse: true },
+  githubId: { type: String, sparse: true },
+  emailVerified: { type: Boolean, default: false },
+  otpCodeHash: { type: String, select: false },
+  otpExpiresAt: { type: Date },
+  otpAttempts: { type: Number, default: 0 },
+  lastLoginAt: { type: Date },
   createdAt: {
     type: Date,
     default: Date.now

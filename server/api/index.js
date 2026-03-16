@@ -2,6 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const rateLimit = require('express-rate-limit');
+
+require('../config/passport');
 
 const app = express();
 
@@ -29,6 +33,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json({ limit: '10mb' }));
+app.use(passport.initialize());
 
 app.use(async (req, res, next) => {
   try {
@@ -39,7 +44,15 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use('/api/auth', require('../routes/auth'));
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  message: { message: 'Too many requests. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use('/api/auth', authLimiter, require('../routes/auth'));
 app.use('/api/portfolios', require('../routes/portfolio'));
 
 app.get('/api/health', (req, res) => {
