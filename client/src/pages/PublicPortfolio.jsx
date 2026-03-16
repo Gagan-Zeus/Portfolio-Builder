@@ -5,6 +5,11 @@ import api from '../utils/api'
 import { Briefcase, GraduationCap, Award, FolderOpen, Layers, Heart, Mic, PenTool, Mail, ExternalLink, MapPin, Globe } from 'lucide-react'
 import { BACKGROUNDS } from '../components/backgrounds'
 
+const ensureUrl = (url) => {
+  if (!url) return url
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
 export default function PublicPortfolio() {
   const { slug } = useParams()
   const [portfolio, setPortfolio] = useState(null)
@@ -74,7 +79,7 @@ export default function PublicPortfolio() {
             {general.pronouns && <span>({general.pronouns})</span>}
           </div>
           {general.website && (
-            <a href={general.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300">
+            <a href={ensureUrl(general.website)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300">
               <Globe size={14} /> {general.website}
             </a>
           )}
@@ -130,7 +135,7 @@ export default function PublicPortfolio() {
                 <h3 className="font-bold text-white">{cert.name}</h3>
                 <p className="text-sm text-slate-400">{cert.issuer}</p>
                 <p className="text-xs text-slate-500 mt-1">{cert.date}</p>
-                {cert.url && <a href={cert.url} target="_blank" rel="noopener noreferrer" className="text-xs mt-2 inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> View</a>}
+                {cert.url && <a href={ensureUrl(cert.url)} target="_blank" rel="noopener noreferrer" className="text-xs mt-2 inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> View</a>}
               </div>
             ))}
           </div>
@@ -149,7 +154,7 @@ export default function PublicPortfolio() {
                   <h3 className="font-bold text-white mb-2">{proj.title}</h3>
                   <p className="text-slate-400 text-sm mb-3 leading-relaxed">{proj.description}</p>
                   {proj.tech && <p className="text-xs mb-3" style={{ color: accent }}>{proj.tech}</p>}
-                  {proj.link && <a href={proj.link} target="_blank" rel="noopener noreferrer" className="text-xs inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> View Project</a>}
+                  {proj.link && <a href={ensureUrl(proj.link)} target="_blank" rel="noopener noreferrer" className="text-xs inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> View Project</a>}
                 </div>
               </motion.div>
             ))}
@@ -165,7 +170,7 @@ export default function PublicPortfolio() {
               <div key={i} className="rounded-xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
                 <h3 className="font-bold text-white mb-1">{sp.title}</h3>
                 <p className="text-slate-400 text-sm mb-2">{sp.description}</p>
-                {sp.link && <a href={sp.link} target="_blank" rel="noopener noreferrer" className="text-xs inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> View</a>}
+                {sp.link && <a href={ensureUrl(sp.link)} target="_blank" rel="noopener noreferrer" className="text-xs inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> View</a>}
               </div>
             ))}
           </div>
@@ -197,7 +202,7 @@ export default function PublicPortfolio() {
                 <h3 className="font-bold text-white">{talk.title}</h3>
                 <p className="text-sm text-slate-400">{talk.event}</p>
                 <p className="text-xs text-slate-500 mt-1">{talk.date}</p>
-                {talk.url && <a href={talk.url} target="_blank" rel="noopener noreferrer" className="text-xs mt-2 inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> Watch</a>}
+                {talk.url && <a href={ensureUrl(talk.url)} target="_blank" rel="noopener noreferrer" className="text-xs mt-2 inline-flex items-center gap-1" style={{ color: accent }}><ExternalLink size={11} /> Watch</a>}
               </div>
             ))}
           </div>
@@ -209,7 +214,7 @@ export default function PublicPortfolio() {
         <Section title="Writing" icon={PenTool} id="writing">
           <div className="space-y-3">
             {writing.map((article, i) => (
-              <a key={i} href={article.url || '#'} target="_blank" rel="noopener noreferrer"
+              <a key={i} href={ensureUrl(article.url) || '#'} target="_blank" rel="noopener noreferrer"
                 className="block rounded-xl p-5 transition-colors hover:bg-white/[0.04]"
                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
                 <div className="flex items-center justify-between">
@@ -241,7 +246,7 @@ export default function PublicPortfolio() {
             {contact.links && contact.links.length > 0 && (
               <div className="flex flex-wrap justify-center gap-3">
                 {contact.links.map((link, i) => (
-                  <a key={i} href={link.url} target="_blank" rel="noopener noreferrer"
+                  <a key={i} href={ensureUrl(link.url)} target="_blank" rel="noopener noreferrer"
                     className="px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-white/[0.06]"
                     style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#a5b4fc' }}>
                     {link.label || link.platform || 'Link'}
