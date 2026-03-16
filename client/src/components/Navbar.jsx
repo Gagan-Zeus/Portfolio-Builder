@@ -58,8 +58,8 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <Link to="/login" className="btn-ghost text-sm py-2 px-4">Sign in</Link>
-                <Link to="/register" className="btn-primary text-sm py-2 px-4">Get Started</Link>
+                <Link to="/auth" className="btn-ghost text-sm py-2 px-4">Sign in</Link>
+                <Link to="/auth" className="btn-primary text-sm py-2 px-4">Get Started</Link>
               </div>
             )}
           </div>
@@ -85,8 +85,8 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="flex flex-col gap-2">
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="px-4 py-3 text-sm text-slate-300 text-center rounded-xl border border-white/10">Sign in</Link>
-                <Link to="/register" onClick={() => setMobileOpen(false)} className="btn-primary text-center justify-center">Get Started</Link>
+                <Link to="/auth" onClick={() => setMobileOpen(false)} className="px-4 py-3 text-sm text-slate-300 text-center rounded-xl border border-white/10">Sign in</Link>
+                <Link to="/auth" onClick={() => setMobileOpen(false)} className="btn-primary text-center justify-center">Get Started</Link>
               </div>
             )}
           </motion.div>

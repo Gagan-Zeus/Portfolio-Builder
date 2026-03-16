@@ -105,7 +105,7 @@ export default function Landing() {
           </motion.p>
 
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={3} className="flex flex-wrap gap-4 justify-center">
-            <Link to="/register" className="btn-primary text-base px-8 py-4">
+            <Link to="/auth" className="btn-primary text-base px-8 py-4">
               Start Building Free <ArrowRight size={16} />
             </Link>
             <a href="#features" className="btn-ghost text-base px-8 py-4">
@@ -240,7 +240,7 @@ export default function Landing() {
             Your portfolio is<br /><span className="gradient-text">waiting to be built</span>
           </h2>
           <p className="text-slate-400 text-lg mb-10 max-w-lg mx-auto">Join thousands of professionals who built their portfolio with DevFolio. Start for free, no credit card needed.</p>
-          <Link to="/register" className="btn-primary text-base px-10 py-4 inline-flex">
+          <Link to="/auth" className="btn-primary text-base px-10 py-4 inline-flex">
             Build Your Portfolio <ArrowRight size={18} />
           </Link>
         </motion.div>

@@ -3,8 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext'
 import { PortfolioProvider } from './context/PortfolioContext'
 import Landing from './pages/Landing'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import AuthPage from './pages/AuthPage'
 import Dashboard from './pages/Dashboard'
 import Builder from './pages/Builder'
 import PublicPortfolio from './pages/PublicPortfolio'
@@ -31,8 +30,9 @@ export default function App() {
           />
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/login" element={<Navigate to="/auth" replace />} />
+            <Route path="/register" element={<Navigate to="/auth" replace />} />
             <Route path="/p/:slug" element={<PublicPortfolio />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
