@@ -269,8 +269,63 @@ router.get('/me', authMiddleware, async (req, res) => {
       name: req.user.name,
       email: req.user.email,
       avatar: req.user.avatar,
+      authProviders: req.user.authProviders,
     },
   });
+});
+
+// PUT /api/auth/profile — update name and avatar
+router.put('/profile', authMiddleware, async (req, res) => {
+  try {
+    const { name, avatar } = req.body;
+    const update = {};
+    if (name !== undefined) {
+      if (!name.trim()) return res.status(400).json({ message: 'Name cannot be empty' });
+      if (name.trim().length > 60) return res.status(400).json({ message: 'Name cannot exceed 60 characters' });
+      update.name = name.trim();
+    }
+    if (avatar !== undefined) {
+      update.avatar = avatar;
+    }
+    const user = await User.findByIdAndUpdate(req.user._id, update, { new: true });
+    res.json({
+      user: { id: user._id, name: user.name, email: user.email, avatar: user.avatar, authProviders: user.authProviders },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Server error' });
+  }
+});
+
+// PUT /api/auth/password — change password
+router.put('/password', authMiddleware, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({ message: 'New password must be at least 6 characters' });
+    }
+
+    const user = await User.findById(req.user._id).select('+password');
+
+    // If user has a password (local auth), verify current password
+    if (user.password) {
+      if (!currentPassword) {
+        return res.status(400).json({ message: 'Current password is required' });
+      }
+      const isMatch = await user.comparePassword(currentPassword);
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Current password is incorrect' });
+      }
+    }
+
+    user.password = newPassword;
+    if (!user.authProviders.includes('local')) {
+      user.authProviders.push('local');
+    }
+    await user.save();
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message || 'Server error' });
+  }
 });
 
 module.exports = router;
