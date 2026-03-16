@@ -154,14 +154,6 @@ export default function Builder() {
             </button>
           ))}
         </nav>
-        <div className="px-2 py-3" style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}>
-          <Link to="/dashboard"
-            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all text-left"
-            style={{ color: '#4f46e5', background: 'rgba(99,102,241,0.06)' }}>
-            <LayoutDashboard size={15} />
-            Dashboard
-          </Link>
-        </div>
       </div>
 
       {/* Main Content */}
@@ -170,7 +162,14 @@ export default function Builder() {
         <div className="flex items-center justify-between px-8 py-4 flex-shrink-0"
           style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
           <h1 className="font-display font-bold text-2xl text-gray-900">{activeLabel}</h1>
-          <button onClick={handlePublish}
+          <div className="flex items-center gap-3">
+            <Link to="/dashboard"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
+              style={{ color: '#4f46e5', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}>
+              <LayoutDashboard size={15} />
+              Dashboard
+            </Link>
+            <button onClick={handlePublish}
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all"
             style={{
               background: current?.published ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
@@ -178,7 +177,8 @@ export default function Builder() {
             }}>
             <Rocket size={15} />
             {current?.published ? 'Published' : 'Publish Portfolio'}
-          </button>
+            </button>
+          </div>
         </div>
 
         {/* Form Area */}
