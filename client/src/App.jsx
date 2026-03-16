@@ -8,6 +8,9 @@ import Dashboard from './pages/Dashboard'
 import Builder from './pages/Builder'
 import AccountPage from './pages/AccountPage'
 import PublicPortfolio from './pages/PublicPortfolio'
+import ContactPage from './pages/ContactPage'
+import TermsOfUse from './pages/TermsOfUse'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
@@ -36,6 +39,9 @@ export default function App() {
             <Route path="/login" element={<Navigate to="/auth" replace />} />
             <Route path="/register" element={<Navigate to="/auth" replace />} />
             <Route path="/p/:slug" element={<PublicPortfolio />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<TermsOfUse />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/builder/:id" element={<Builder />} />

@@ -54,6 +54,7 @@ const authLimiter = rateLimit({
 
 app.use('/api/auth', authLimiter, require('../routes/auth'));
 app.use('/api/portfolios', require('../routes/portfolio'));
+app.use('/api/contact', require('../routes/contact'));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

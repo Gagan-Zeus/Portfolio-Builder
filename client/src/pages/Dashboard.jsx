@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import { usePortfolio } from '../context/PortfolioContext'
 import toast from 'react-hot-toast'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 import { Plus, Pencil, Trash2, Globe, ExternalLink, Zap, X } from 'lucide-react'
 
 export default function Dashboard() {
@@ -143,6 +144,8 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      <Footer />
 
       {/* Create Modal */}
       <AnimatePresence>
