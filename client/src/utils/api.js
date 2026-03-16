@@ -15,9 +15,13 @@ api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      window.location.href = '/auth'
+      const url = err.config?.url || ''
+      const isAuthRoute = url.includes('/auth/')
+      if (!isAuthRoute) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        window.location.href = '/auth'
+      }
     }
     return Promise.reject(err.response?.data?.message || 'Something went wrong')
   }
